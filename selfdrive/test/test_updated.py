@@ -45,7 +45,8 @@ class TestUpdated(unittest.TestCase):
     # setup two git repos, a remote and one we'll run updated in
     self._run([
       f"git clone {BASEDIR} {self.git_remote_dir}",
-      f"git clone --recurse-submodules {self.git_remote_dir} {self.basedir}",
+      f"git clone {self.git_remote_dir} {self.basedir}",
+      f"cd {self.basedir} && git submodule update --init",
       f"cd {self.basedir} && scons -j{os.cpu_count()} cereal/ common/"
     ])
 
