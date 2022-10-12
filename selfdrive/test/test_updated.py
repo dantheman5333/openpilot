@@ -37,8 +37,7 @@ class TestUpdated(unittest.TestCase):
     self.finalized_dir = os.path.join(self.staging_root, "finalized")
 
     # setup local submodule remotes
-    submodules = subprocess.check_output("git submodule --quiet foreach 'echo $path'",
-                                         shell=True, cwd=BASEDIR, encoding='utf8').split()
+    submodules = self._run("git submodule --quiet foreach 'echo $path'", cwd=BASEDIR).split()
     for s in submodules:
       sub_path = os.path.join(org_dir, s.split("_repo")[0])
       self._run(f"git clone {s} {sub_path}.git", cwd=BASEDIR)
